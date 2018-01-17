@@ -34,9 +34,9 @@ public class Imagen implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int codigoImagen;
 	
-	@Size(min=1, max=100) //Validacion de tamaño de campo en bd
+	/*@Size(min=1, max=100) //Validacion de tamaño de campo en bd
 	@Column(unique=true) //Especificacion de campo unico
-	private String nombreImagen;
+	private String nombreImagen;*/
 	
 	@Size(min=1, max=100) //Validacion de tamaño de campo en bd
 	private String descripcionImagen;
@@ -45,18 +45,18 @@ public class Imagen implements Serializable{
 	@Column(name="img")
 	private byte[] img;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="codigo")
-	@JsonIgnore
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="propiedad",nullable=false)
+	//@JsonIgnore
 	private Propiedad propiedad;
 	
-	public String getNombreImagen() {
+	/*public String getNombreImagen() {
 		return nombreImagen;
 	}
 
 	public void setNombreImagen(String nombreImagen) {
 		this.nombreImagen = nombreImagen;
-	}
+	}*/
 	
 	public int getCodigoImagen() {
 		return codigoImagen;

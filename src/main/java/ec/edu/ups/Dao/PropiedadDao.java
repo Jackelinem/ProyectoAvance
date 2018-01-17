@@ -24,7 +24,7 @@ public class PropiedadDao {
 	 * metodo de guardar o actualizar Propiedad
 	 */
 	public void guardar(Propiedad propiedad) {
-		Propiedad p =leer(propiedad.getCodigo());
+		Propiedad p =em.find(Propiedad.class,propiedad.getCodigo());
 		
 		System.out.println(propiedad.getCodigo());
 		if(p==null) {
@@ -64,8 +64,7 @@ public class PropiedadDao {
 	public Propiedad leer(int codigo) {
 		Propiedad p =em.find(Propiedad.class, codigo);
 		p.getImagenes().size();
-		p.getPersona().getNombres();
-		p.getPersona().getApellido();
+		p.getPersona();
 		p.getPersona().getTelefonos().size();
 		return p;
 	}
@@ -73,12 +72,24 @@ public class PropiedadDao {
 	/*
 	 * metodo de listar propiedades
 	 */
-	public List<Propiedad> listadoPropiedades(){
+	/*public List<Propiedad> listadoPropiedades(){
 		String jpql = "Select p From Propiedad p";
 		Query query = em.createQuery(jpql,Propiedad.class);
 		List<Propiedad> listado = query.getResultList();
 		
 		
+		System.out.println(listado.size());
+		return listado;
+		
+	}*/
+	
+	public List<Propiedad> listadoPropiedades(){
+		String jpql = "Select p From Propiedad p left JOIN FETCH p.imagenes do "
+		+ "JOIN FETCH p.persona per "
+		+ "JOIN FETCH p.categoria c "
+		+ "JOIN FETCH p.sector s";
+		Query query = em.createQuery(jpql,Propiedad.class);
+		List<Propiedad> listado = query.getResultList();
 		System.out.println(listado.size());
 		return listado;
 		

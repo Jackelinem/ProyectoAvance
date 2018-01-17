@@ -34,15 +34,6 @@ public class ImagenDAO {
 		em.remove(leer(nombre));
 	}
 	
-	//Objeto de Negocio Para guardar o actualizar Ciudad
-	public void guardar(Imagen im){
-		Imagen img = leer(im.getNombreImagen());
-		if(img==null)
-			insertar(im);
-		else
-			actualizar(im);
-	}
-	
 	//Listado de todos las imágenes
 	public List<Imagen> listadoImagenes(){
 		String sql = "SELECT n FROM Imagen n";

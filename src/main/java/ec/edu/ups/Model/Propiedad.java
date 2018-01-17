@@ -77,8 +77,7 @@ public class Propiedad implements Serializable{
 	
 	private double latitud;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="propiedad", referencedColumnName="codigo")
+	@OneToMany(mappedBy="propiedad")
 	private List<Imagen> imagenes;
 
 // getters and setters
