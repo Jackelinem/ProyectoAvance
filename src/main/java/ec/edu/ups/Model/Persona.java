@@ -72,8 +72,8 @@ public class Persona implements Serializable {
 	
 	//relacion uno a muchos una persona puede tener varias propiedades
 	@OneToMany(mappedBy="persona")
-	private Set<Propiedad> propiedades=new HashSet<>();
-	
+	//private List<Propiedad> propiedades=new HashSet<>();
+	private List<Propiedad> propiedades;
 
 	@Size(min=4,max=50)
 	@Column (name="per_direccion", length=10)
@@ -114,11 +114,11 @@ public class Persona implements Serializable {
 		this.telefonos = telefonos;
 	}
 
-	public Set<Propiedad> getPropiedades() {
+	public List<Propiedad> getPropiedades() {
 		return propiedades;
 	}
 
-	public void setPropiedades(Set<Propiedad> propiedades) {
+	public void setPropiedades(List<Propiedad> propiedades) {
 		this.propiedades = propiedades;
 	}
 

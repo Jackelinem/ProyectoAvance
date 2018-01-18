@@ -63,6 +63,7 @@ public class Propiedad implements Serializable{
 	// relacion bidireccional muchas propiedades pueden pertenecer a una persona
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="persona")
+	@JsonIgnore
 	private Persona persona;
 	
 	// relacion bidireccional muchas propiedades pueden pertenecer a una categoria
@@ -77,7 +78,11 @@ public class Propiedad implements Serializable{
 	
 	private double latitud;
 	
-	@OneToMany(mappedBy="propiedad")
+	//@OneToMany(mappedBy="propiedad")
+	//private List<Imagen> imagenes;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="propiedad", referencedColumnName="codigo")
 	private List<Imagen> imagenes;
 
 // getters and setters

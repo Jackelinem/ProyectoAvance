@@ -41,6 +41,7 @@ public class PropiedadController {
 	
 	private Propiedad propiedad;//instancia categoria
 	private List<Propiedad> listpropiedades;//lista de propiedades
+	private List<Propiedad> listpropiedadesMapa;//lista de propiedades
 	private List<Provincia> provinciasDeBase;//lista provincias ya registradas
 	private List<Categoria> categoriasDeBase;//lista de Categorias ya registradas
 	
@@ -151,6 +152,8 @@ public class PropiedadController {
 	private void loadPropiedades() {
 		
 		listpropiedades=propiedadDao.listadoPropiedades();
+		listpropiedadesMapa=propiedadDao.listadoPropiedades2();
+		
 		for (int i = 0; i < listpropiedades.size(); i++) {
 			System.out.println(listpropiedades.get(i).getCodigo()+"" +listpropiedades.get(i).getDescripcion());
 			
@@ -177,7 +180,7 @@ public class PropiedadController {
 			//codigoPersona=persona.getCodigo();
 			propiedad.setPersona(per);
 		//}
-		init();
+		//init();
 		
 	}
 	
@@ -286,7 +289,12 @@ public class PropiedadController {
 	 * metodo que me permite guardar la propiedad una ves que se han cargado las entidades relacionadas
 	 */
 	public String savePropiedad() {
-		System.out.println("Sector alias"+propiedad.getCategoria().getDescripcion());
+		System.out.println("propiedad a guradar");
+		
+		System.out.println("Propietario "+propiedad.getPersona().getNombres());
+		System.out.println("Sector "+propiedad);
+		System.out.println("Categoria alias"+propiedad.getCategoria().getDescripcion());
+		System.out.println("numero de imagenes"+propiedad.getImagenes().size());
 		
 		propiedadDao.guardar(propiedad);
 		init();
@@ -621,6 +629,16 @@ public class PropiedadController {
 
 	public void setFile(Part file) {
 		this.file = file;
+	}
+
+
+	public List<Propiedad> getListpropiedadesMapa() {
+		return listpropiedadesMapa;
+	}
+
+
+	public void setListpropiedadesMapa(List<Propiedad> listpropiedadesMapa) {
+		this.listpropiedadesMapa = listpropiedadesMapa;
 	}
 
 	

@@ -17,41 +17,27 @@
           <div class="widget-title bg_ly" ><span class="icon"><i class="icon-chevron-down"></i></span>
             <h5> Propiedades publicadas </h5>
           </div>
-          
+          <style>
+			      		#imagen {
+			      			height: 150px;
+			      			width: 190px;
+			      			
+			      		}
+			    	</style>
           <h:dataTable id="tabProv" class="table table-bordered table-striped"  styleClass="employeeTable" headerClass="employeeTableHeader"  rowClasses="employeeTableOddRow,employeeTableEvenRow"  width="100%" align="center"
 	value="#{propiedadController.listpropiedades}" var="propiedad"  rendered="#{not empty propiedadController.propiedad}"> <!--Rendered, si quiero se muestre  -->
-		
-		
 		<h:column>
-			<center>
-			<f:facet name="header">Direccion</f:facet>
-			#{propiedad.direccion}
-			</center>
+			
+			<IMG id="imagen" alt="" src="#{propiedadController.toBase64(propiedad)}" />
+			<h:outputLabel value="DIRECCION: #{propiedad.direccion}" />
+			
 		</h:column>
 		
 		<h:column>
-			<center>
-			<f:facet name="header">Url video</f:facet>
-			#{propiedad.urlVideo}
-			</center>
-		</h:column>
-		
-		<h:column>
-			<center>
 			<f:facet name="header">Descripcion</f:facet>
 			#{propiedad.descripcion}
-			</center>
 		</h:column>
-		
-		
-	
-		
-		<h:column>
-		<center>
-			<f:facet name="header">Estado</f:facet>
-			#{propiedad.estado}
-			</center>
-		</h:column>
+
 		
 		<h:column>
 		<center>
@@ -62,14 +48,15 @@
 		
 		<h:column>
 		<center>
-			<f:facet name="header">Costo</f:facet>
-			#{propiedad.costo}
+						<h:outputLabel value="$ #{propiedad.costo}" />
+			
+			 
 			</center>
 		</h:column>
 		<h:column>
 		<center>
 			<f:facet name="header"></f:facet>
-			<a   href="PropiedadDetalle.xhtml?id=#{propiedad.codigo}">Ir</a>
+			<a style="color: BLUE"   href="PropiedadDetalle.xhtml?id=#{propiedad.codigo}"> SELECCIONA PARA MAS DETALLE</a>
 			
 			</center>
 		</h:column>

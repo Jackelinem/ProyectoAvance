@@ -45,10 +45,16 @@ public class Imagen implements Serializable{
 	@Column(name="img")
 	private byte[] img;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	/*@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="propiedad",nullable=false)
 	//@JsonIgnore
+	private Propiedad propiedad;*/
+	
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="codigo")
+	@JsonIgnore
 	private Propiedad propiedad;
+	
 	
 	/*public String getNombreImagen() {
 		return nombreImagen;

@@ -62,11 +62,13 @@ public class PropiedadDao {
 	 * metodo de leer propiedad por ID
 	 */
 	public Propiedad leer(int codigo) {
+		System.out.println("codigo "+ codigo);
 		Propiedad p =em.find(Propiedad.class, codigo);
 		p.getImagenes().size();
 		p.getPersona();
 		p.getPersona().getTelefonos().size();
 		return p;
+		
 	}
 	
 	/*
@@ -84,6 +86,17 @@ public class PropiedadDao {
 	}*/
 	
 	public List<Propiedad> listadoPropiedades(){
+		String jpql = "Select p From Propiedad p";
+		Query query = em.createQuery(jpql,Propiedad.class);
+		List<Propiedad> listado = query.getResultList();
+		
+		
+		System.out.println(listado.size());
+		return listado;
+		
+	}
+	
+	public List<Propiedad> listadoPropiedades2(){
 		String jpql = "Select p From Propiedad p left JOIN FETCH p.imagenes do "
 		+ "JOIN FETCH p.persona per "
 		+ "JOIN FETCH p.categoria c "
