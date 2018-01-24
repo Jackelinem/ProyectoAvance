@@ -15,10 +15,12 @@ import javax.servlet.http.Part;
 import com.lowagie.text.pdf.codec.Base64;
 
 import ec.edu.ups.Dao.CategoriaDao;
+import ec.edu.ups.Dao.ComentariosDAO;
 import ec.edu.ups.Dao.PersonaDao;
 import ec.edu.ups.Dao.PropiedadDao;
 import ec.edu.ups.Dao.ProvinciaDAO;
 import ec.edu.ups.Model.Categoria;
+import ec.edu.ups.Model.Comentarios;
 import ec.edu.ups.Model.Imagen;
 import ec.edu.ups.Model.Persona;
 import ec.edu.ups.Model.Propiedad;
@@ -38,12 +40,16 @@ public class PropiedadController {
 	private Sector sector;//instancia sector
 	private Persona persona;// instancia persona
 	private Categoria categoria;//instancia categoria
+	private Comentarios comentario;
 	
 	private Propiedad propiedad;//instancia categoria
 	private List<Propiedad> listpropiedades;//lista de propiedades
 	private List<Propiedad> listpropiedadesMapa;//lista de propiedades
 	private List<Provincia> provinciasDeBase;//lista provincias ya registradas
 	private List<Categoria> categoriasDeBase;//lista de Categorias ya registradas
+	private List<Comentarios> listComentarios;
+	private Comentarios comSelec;
+	
 	
 	//id me permite saber si es nuevo registro 
 	private int id;
@@ -52,6 +58,9 @@ public class PropiedadController {
 	private int indice;
 	
 	private String provin;
+	
+	private String com;
+	private boolean privado;
 	
 	//codigo persona para validar existencia de persona
 	private int codigoPersona;
@@ -90,9 +99,18 @@ public class PropiedadController {
 	@Inject
 	private CategoriaDao catDao;
 	
+	@Inject
+	private ComentariosDAO comDao;
+	
+	
+	@Inject
+	private Sesion sesion;
+	
 	
 	@PostConstruct
 	public void init() {
+		listComentarios=new ArrayList<Comentarios>();
+		comentario=new Comentarios();
 		persona =new Persona();
 		provincia=new Provincia();
 		sector=new Sector();
@@ -140,6 +158,8 @@ public class PropiedadController {
 	public String loadDatosEditar(int codigo) {
 		
 		propiedad =propiedadDao.leer(codigo);
+		listComentarios =propiedadDao.leer2(codigo,false);
+		
 		System.out.println(propiedad.getDescripcion()+" tiene imagenes "+propiedad.getImagenes().size());
 		return "EditarPropiedad";
 	}
@@ -362,6 +382,39 @@ public class PropiedadController {
 		System.out.println("Nombre: "+this.getPersona().getNombres());
 	}
 
+	
+	public void agregarComentario() {
+		
+		
+		
+		
+		
+		comentario.setComentario(com);
+		System.out.println(com);
+		comentario.setPersona(sesion.getUser());
+		System.out.println(sesion.getUser());
+		comentario.setPropiedad(propiedad);
+		System.out.println(propiedad);
+		comentario.setPrivado(Boolean.valueOf(privado));
+		System.out.println(privado);
+		comDao.insertar(comentario);
+		System.out.println(comentario);
+		com="";
+		listComentarios =propiedadDao.leer2(propiedad.getCodigo(),false);
+		
+	}
+	
+	public void seleccionarComentario(Comentarios c) {
+		this.comSelec=c;
+	}
+	public void limpiarComentario() {
+		this.comSelec=null;
+	}
+	
+	
+	
+	
+	
 	
 	//getters and setters
 	
@@ -639,6 +692,66 @@ public class PropiedadController {
 
 	public void setListpropiedadesMapa(List<Propiedad> listpropiedadesMapa) {
 		this.listpropiedadesMapa = listpropiedadesMapa;
+	}
+
+
+	public Comentarios getComentario() {
+		return comentario;
+	}
+
+
+	public void setComentario(Comentarios comentario) {
+		this.comentario = comentario;
+	}
+
+
+	public String getCom() {
+		return com;
+	}
+
+
+	public void setCom(String com) {
+		this.com = com;
+	}
+
+
+	public boolean isPrivado() {
+		return privado;
+	}
+
+
+	public void setPrivado(boolean privado) {
+		this.privado = privado;
+	}
+
+
+	public Sesion getSesion() {
+		return sesion;
+	}
+
+
+	public void setSesion(Sesion sesion) {
+		this.sesion = sesion;
+	}
+
+
+	public List<Comentarios> getListComentarios() {
+		return listComentarios;
+	}
+
+
+	public void setListComentarios(List<Comentarios> listComentarios) {
+		this.listComentarios = listComentarios;
+	}
+
+
+	public Comentarios getComSelec() {
+		return comSelec;
+	}
+
+
+	public void setComSelec(Comentarios comSelec) {
+		this.comSelec = comSelec;
 	}
 
 	

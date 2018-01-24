@@ -84,10 +84,25 @@ public class Propiedad implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="propiedad", referencedColumnName="codigo")
 	private List<Imagen> imagenes;
+	
+	@OneToMany(mappedBy="propiedad")
+	private List<Comentarios> comentarios;
 
 // getters and setters
+	
+	
 	public int getCodigo() {
 		return codigo;
+	}
+
+
+	public List<Comentarios> getComentarios() {
+		return comentarios;
+	}
+
+
+	public void setComentarios(List<Comentarios> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 

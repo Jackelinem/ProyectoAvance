@@ -17,59 +17,46 @@
           <div class="widget-title bg_ly" ><span class="icon"><i class="icon-chevron-down"></i></span>
             <h5> Propiedades publicadas </h5>
           </div>
+          <style>
+			      		#imagen {
+			      			height: 150px;
+			      			width: 190px;
+			      			background-color: #CFEFFA;
+			      			border-color:#F1F8FA;
+			      			
+			      		}
+			      		#tabProv {
+						    background-color: #9CD0E0;
+						    border-color:#1F5E72;
+						    font-size: 12px;
+						    font-family: Verdana, Arial, sans-serif;
+						    color: #000000; 
+						}
+			    	</style>
           
           <h:dataTable id="tabProv" class="table table-bordered table-striped"  styleClass="employeeTable" headerClass="employeeTableHeader"  rowClasses="employeeTableOddRow,employeeTableEvenRow"  width="100%" align="center"
 	value="#{propiedadController.listpropiedades}" var="propiedad"  rendered="#{not empty propiedadController.propiedad}"> <!--Rendered, si quiero se muestre  -->
 		
-		
 		<h:column>
-			<center>
-			<f:facet name="header">Direccion</f:facet>
-			#{propiedad.direccion}
-			</center>
+			
+			<IMG id="imagen" alt="" src="#{propiedadController.toBase64(propiedad)}" />
+			<h:outputLabel value="DIRECCION: #{propiedad.direccion}" />
+			
 		</h:column>
 		
 		<h:column>
-			<center>
-			<f:facet name="header">Url video</f:facet>
-			#{propiedad.urlVideo}
-			</center>
-		</h:column>
-		
-		<h:column>
-			<center>
-			<f:facet name="header">Descripcion</f:facet>
-			#{propiedad.descripcion}
-			</center>
-		</h:column>
-		
-		
-	
-		
-		<h:column>
-		<center>
-			<f:facet name="header">Estado</f:facet>
-			#{propiedad.estado}
-			</center>
-		</h:column>
-		
-		<h:column>
-		<center>
-			<f:facet name="header">Tipo</f:facet>
-			#{propiedad.tipo}
-			</center>
-		</h:column>
-		
-		<h:column>
-		<center>
-			<f:facet name="header">Costo</f:facet>
-			#{propiedad.costo}
-			</center>
+						<h:outputLabel value="DESCRIPCION #{propiedad.descripcion}" />
+						<h:outputLabel value="EN #{propiedad.tipo}" />
+						<h:outputLabel value="$ #{propiedad.costo}" />
+						
+			
+			 
+			
 		</h:column>
 		<h:column>
 		<center>
 			<f:facet name="header"></f:facet>
-			<a   href="PropiedadDetalleInvitado.xhtml?id=#{propiedad.codigo}">Ir</a>
+			<a style="color: BLUE"   href="PropiedadDetalleInvitado.xhtml?id=#{propiedad.codigo}"> SELECCIONA PARA MAS DETALLE</a>
 			
 			</center>
 		</h:column>

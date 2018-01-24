@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import ec.edu.ups.Model.Comentarios;
 import ec.edu.ups.Model.Propiedad;
 
 
@@ -66,6 +67,7 @@ public class PropiedadDao {
 		Propiedad p =em.find(Propiedad.class, codigo);
 		p.getImagenes().size();
 		p.getPersona();
+		p.getComentarios().size();
 		p.getPersona().getTelefonos().size();
 		return p;
 		
@@ -94,6 +96,18 @@ public class PropiedadDao {
 		System.out.println(listado.size());
 		return listado;
 		
+	}
+	
+	public List<Comentarios> leer2(int idp, Boolean privado) {
+		String jpql = "Select p From Comentarios p JOIN FETCH p.persona do "
+				+ "JOIN FETCH p.propiedad pr "
+				+ "where p.privado= :privado "
+				+ "and pr.codigo= :idp";
+				Query query = em.createQuery(jpql,Comentarios.class);
+				query.setParameter("privado", privado);
+				query.setParameter("idp", idp);
+				List<Comentarios> listado =query.getResultList();
+				return listado;
 	}
 	
 	public List<Propiedad> listadoPropiedades2(){

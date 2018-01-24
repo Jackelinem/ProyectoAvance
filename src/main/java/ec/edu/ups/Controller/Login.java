@@ -40,6 +40,10 @@ public class Login {
 	@Inject
 	private PersonaDao personaDao;
 	
+	
+	@Inject
+	private Sesion sesion;
+	
 	@PostConstruct
 	private void init(){
 		persona = new Persona();
@@ -55,6 +59,7 @@ public class Login {
 			persona = personaDao.buscarUser(this.getEmail(),this.getPass());
 			System.out.println("entro "+persona.getRol().getTipo());
 			 if(persona != null) {
+				 sesion.setUser(persona);
 				 if(persona.getRol()==null)
 					 return"index";
 				 if(persona.getRol().getTipo().equals("invitado")) {
@@ -135,6 +140,16 @@ public class Login {
 	        // This is the root cause message
 	        return errorMessage;
 	    }
+
+
+		public Sesion getSesion() {
+			return sesion;
+		}
+
+
+		public void setSesion(Sesion sesion) {
+			this.sesion = sesion;
+		}
 
 
 }

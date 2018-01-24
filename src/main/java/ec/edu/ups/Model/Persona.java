@@ -91,11 +91,24 @@ public class Persona implements Serializable {
 	@JsonIgnore
 	private Rol rol;
 	
+	@OneToMany(mappedBy="persona")
+	private List<Comentarios> comentarios;
+	
+	
+	
 	///getter and setter
 
-	
+
 	public int getCodigo() {
 		return codigo;
+	}
+
+	public List<Comentarios> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentarios> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	public Rol getRol() {
